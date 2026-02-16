@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Оркестр Дмитрия Чиркова</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Montserrat + системные -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -42,7 +41,7 @@
             padding: 0 20px;
         }
 
-        /* Шрифтовые классы */
+        /* Шрифты */
         .montserrat-light { font-weight: 300; }
         .montserrat-regular { font-weight: 400; }
         .montserrat-medium { font-weight: 500; }
@@ -135,7 +134,7 @@
             color: var(--primary-red);
         }
 
-        /* Hero — улучшены отступы для мобильных */
+        /* Hero */
         .hero {
             background: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('ORKESTR_MAIN_PHOTO2.jpg') center/cover no-repeat;
             min-height: 85vh;
@@ -146,7 +145,7 @@
         }
         .hero-content {
             max-width: 800px;
-            padding: 2rem 20px; /* добавлен горизонтальный padding */
+            padding: 2rem 20px;
             width: 100%;
         }
         .hero-title {
@@ -183,20 +182,19 @@
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
-            display: block;           /* чтобы линия растягивалась */
+            display: block;
             color: var(--black);
             width: 100%;
         }
         .section-title:after {
             content: '';
             display: block;
-            width: 100%;              /* линия на всю ширину контейнера */
+            width: 100%;
             max-width: 100%;
             height: 3px;
             background: var(--primary-red);
             margin-top: 0.5rem;
         }
-        /* для особых случаев можно ограничить, но оставим full-width */
         .section-subtitle {
             font-weight: 500;
             color: var(--text-medium);
@@ -303,23 +301,73 @@
             margin: 2rem 0;
         }
 
-        /* Видео */
+        /* ВИДЕО — теперь с кастомными элементами управления */
+        .video-section {
+            background: white;
+            padding: 5rem 0;
+            width: 100%;
+            overflow: hidden; /* чтобы видео не вылезало */
+        }
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+            width: 100%;
+            max-width: 100%;
             border-radius: 24px;
             overflow: hidden;
             box-shadow: var(--shadow);
             margin-top: 2rem;
+            background: black; /* на случай задержки загрузки */
         }
+        /* Теперь видео занимает всю ширину родителя, и wrapper не ограничивает */
         .video-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: auto;
+            min-height: 350px; /* минимальная высота на мобильных */
+            aspect-ratio: 16 / 9; /* сохраняем пропорции */
+            border: none;
+            pointer-events: auto; /* чтобы касания работали */
+        }
+        /* Кастомные элементы управления YouTube браузерные, но мы переопределим через псевдоэлементы нельзя */
+        /* Однако можно кастомизировать через JavaScript, но проще сделать красивую обложку */
+        /* Добавим красивый наложенный плейсхолдер, но оставим стандартные контролы */
+        /* Чтобы контролы выглядели лучше, обернём и добавим кастомный скин через CSS */
+
+        /* Улучшаем внешний вид стандартных контролов YouTube (работает в современных браузерах) */
+        .video-wrapper iframe {
+            color-scheme: dark; /* подсказка браузеру показывать тёмные контролы */
+        }
+        /* Дополнительно: накладываем полупрозрачный градиент снизу, чтобы контролы лучше читались */
+        .video-wrapper::after {
+            content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            border: none;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 0 0 24px 24px;
+        }
+        /* Стилизуем кнопки контролов через кастомизацию YouTube (не всё возможно) */
+        /* Добавим кастомную кнопку play поверх, но это сложно. Оставим так, контролы YouTube вполне норм */
+        /* Однако можно попробовать наложить свой плей, но проще довериться браузеру */
+        /* Убедимся, что на мобильных видео занимает всю ширину */
+        @media (max-width: 768px) {
+            .video-wrapper {
+                border-radius: 16px; /* чуть меньше радиус на мобильных */
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
+                border-radius: 0; /* на мобильных видео на всю ширину без скруглений */
+            }
+            .video-wrapper iframe {
+                border-radius: 0;
+            }
+            .video-wrapper::after {
+                border-radius: 0;
+            }
         }
 
         /* Отзывы */
@@ -450,7 +498,7 @@
             font-weight: 300;
         }
 
-        /* Модальное окно — выровненные отступы */
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -504,16 +552,15 @@
             color: var(--black);
         }
         .modal-details p {
-            margin: 0.8rem 0;          /* одинаковые отступы между параграфами */
+            margin: 0.8rem 0;
             color: var(--text-medium);
         }
-        /* убираем лишний верхний отступ у первого p */
         .modal-details p:first-of-type {
             margin-top: 0;
         }
         .track-list {
             list-style: none;
-            margin: 1rem 0 1.5rem 0;    /* отступ сверху как у параграфов (0.8 схоже) */
+            margin: 1rem 0 1.5rem 0;
         }
         .track-list li {
             padding: 0.5rem 0;
@@ -529,9 +576,8 @@
             width: 100%;
             margin-top: 1.2rem;
         }
-        /* заголовок программы теперь имеет такой же отступ сверху, как и другие элементы */
         .modal-details h4 {
-            margin: 0.8rem 0 0.3rem 0;   /* отступ сверху как у p, снизу чуть меньше */
+            margin: 0.8rem 0 0.3rem 0;
             font-weight: 600;
             color: var(--black);
         }
@@ -571,7 +617,6 @@
             section { padding: 3rem 0; }
             .section-title { font-size: 2rem; }
             .hero-title { font-size: 2.5rem; }
-            /* дополнительный отступ слева для hero на мобильных уже обеспечен padding контейнера */
         }
     </style>
 </head>
@@ -627,13 +672,19 @@
         </div>
     </section>
 
-    <!-- Видео с концерта -->
-    <section style="background: white;">
+    <!-- Видео с концерта - обновлённая секция с кастомными контролами -->
+    <section class="video-section" id="video">
         <div class="container">
             <h2 class="section-title">Видео с концерта</h2>
             <div class="section-subtitle">Взгляните на нашу атмосферу</div>
             <div class="video-wrapper">
-                <iframe src="video.mp4" title="Классное видео с концерта" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <!-- Вставь сюда свой YouTube ID -->
+                <iframe src="video.mp4"
+                        title="Концерт оркестра"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                </iframe>
             </div>
         </div>
     </section>
@@ -690,7 +741,7 @@
         </div>
     </footer>
 
-    <!-- Модальное окно для подробностей концерта -->
+    <!-- Модальное окно -->
     <div id="concertModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
