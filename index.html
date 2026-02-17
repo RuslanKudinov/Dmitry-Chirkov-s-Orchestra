@@ -573,6 +573,41 @@
             .hero-title { font-size: 2.5rem; }
             /* дополнительный отступ слева для hero на мобильных уже обеспечен padding контейнера */
         }
+
+    /* Переопределение стилей Ticketscloud для всех кнопок покупки */
+button.btn[data-tc-event],
+button.btn[data-tc-token],
+a.btn[data-tc-event],
+a.btn[data-tc-token] {
+    background: var(--primary-red) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(239, 65, 48, 0.2) !important;
+    border-radius: 40px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    font-family: inherit !important; /* чтобы не сбился шрифт */
+}
+
+button.btn[data-tc-event]:hover,
+button.btn[data-tc-token]:hover,
+a.btn[data-tc-event]:hover,
+a.btn[data-tc-token]:hover {
+    background: #d32f2f !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(239, 65, 48, 0.3) !important;
+}
+
+/* Для кнопки в hero (она крупнее) */
+.hero .btn[data-tc-event],
+.hero .btn[data-tc-token] {
+    font-size: 1.2rem !important;
+    padding: 16px 40px !important;
+}
     </style>
 </head>
 <body>
