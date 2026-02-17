@@ -51,7 +51,7 @@
         .times-italic { font-family: 'Times New Roman', Times, serif; font-style: italic; }
         .times-bold-italic { font-family: 'Times New Roman', Times, serif; font-weight: 700; font-style: italic; }
 
-        /* Кнопки - восстановлен дизайн */
+        /* Кнопки - дизайн из эталона */
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -184,15 +184,13 @@
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
-            display: block;
+            display: inline-block;
             color: var(--black);
-            width: 100%;
         }
         .section-title:after {
             content: '';
             display: block;
-            width: 100%;
-            max-width: 100%;
+            width: 70px;
             height: 3px;
             background: var(--primary-red);
             margin-top: 0.5rem;
@@ -303,7 +301,7 @@
             margin: 2rem 0;
         }
 
-        /* Видео - исправлено для локального файла */
+        /* Видео - локальный файл */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -631,13 +629,13 @@
         </div>
     </section>
 
-    <!-- Видео с концерта - исправлено на локальный файл -->
+    <!-- Видео с концерта - локальный файл -->
     <section style="background: white;">
         <div class="container">
             <h2 class="section-title">Видео с концерта</h2>
             <div class="section-subtitle">Взгляните на нашу атмосферу</div>
             <div class="video-wrapper">
-                <video src="video.mp4" controls playsinline poster="poster.jpg">
+                <video src="video.mp4" controls playsinline>
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
