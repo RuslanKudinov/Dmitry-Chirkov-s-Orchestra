@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Montserrat + системные -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Скрипт виджета TicketsCloud -->
-    <script src="https://ticketscloud.com/static/scripts/widget/tcwidget.js"></script>
     <style>
         * {
             margin: 0;
@@ -148,7 +146,7 @@
         }
         .hero-content {
             max-width: 800px;
-            padding: 2rem 20px;
+            padding: 2rem 20px; /* добавлен горизонтальный padding */
             width: 100%;
         }
         .hero-title {
@@ -185,19 +183,20 @@
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
-            display: block;
+            display: block;           /* чтобы линия растягивалась */
             color: var(--black);
             width: 100%;
         }
         .section-title:after {
             content: '';
             display: block;
-            width: 100%;
+            width: 100%;              /* линия на всю ширину контейнера */
             max-width: 100%;
             height: 3px;
             background: var(--primary-red);
             margin-top: 0.5rem;
         }
+        /* для особых случаев можно ограничить, но оставим full-width */
         .section-subtitle {
             font-weight: 500;
             color: var(--text-medium);
@@ -505,15 +504,16 @@
             color: var(--black);
         }
         .modal-details p {
-            margin: 0.8rem 0;
+            margin: 0.8rem 0;          /* одинаковые отступы между параграфами */
             color: var(--text-medium);
         }
+        /* убираем лишний верхний отступ у первого p */
         .modal-details p:first-of-type {
             margin-top: 0;
         }
         .track-list {
             list-style: none;
-            margin: 1rem 0 1.5rem 0;
+            margin: 1rem 0 1.5rem 0;    /* отступ сверху как у параграфов (0.8 схоже) */
         }
         .track-list li {
             padding: 0.5rem 0;
@@ -529,8 +529,9 @@
             width: 100%;
             margin-top: 1.2rem;
         }
+        /* заголовок программы теперь имеет такой же отступ сверху, как и другие элементы */
         .modal-details h4 {
-            margin: 0.8rem 0 0.3rem 0;
+            margin: 0.8rem 0 0.3rem 0;   /* отступ сверху как у p, снизу чуть меньше */
             font-weight: 600;
             color: var(--black);
         }
@@ -570,6 +571,7 @@
             section { padding: 3rem 0; }
             .section-title { font-size: 2rem; }
             .hero-title { font-size: 2.5rem; }
+            /* дополнительный отступ слева для hero на мобильных уже обеспечен padding контейнера */
         }
     </style>
 </head>
@@ -598,8 +600,7 @@
             <h1 class="hero-title">Оркестр <span>Дмитрия Чиркова</span></h1>
             <div class="hero-sub">Академическая музыка, переосмысленная с душой</div>
             <div class="hero-buttons">
-                <!-- Кнопка с виджетом TicketsCloud -->
-                <a href="#ticketscloud:event=6983552e93f1d889ada62bfa&token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok&lang=ru" class="btn">Купить билет <i class="fas fa-ticket-alt"></i></a>
+                <a href="#" class="btn" onclick="alert('Билеты на ближайший концерт'); return false;">Купить билет <i class="fas fa-ticket-alt"></i></a>
                 <a href="#concerts" class="btn btn-outline" style="border-color: white; color: white;">Афиша</a>
             </div>
         </div>
@@ -678,9 +679,9 @@
                 <div class="footer-col">
                     <h4>Мы в соцсетях</h4>
                     <div class="social-links">
-                        <a href="https://vk.com/orchestra.best" target="_blank"><i class="fab fa-vk"></i></a>
-                        <a href="https://t.me/orchestraBest" target="_blank"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.youtube.com/watch?v=QEl0G5wB21k" target="_blank"><i class="fab fa-youtube"></i></a>
+                         <a href="https://vk.com/orchestra.best" target="_blank"><i class="fab fa-vk"></i></a>
+        <a href="https://t.me/orchestraBest" target="_blank"><i class="fab fa-telegram"></i></a>
+    <a href="https://www.youtube.com/watch?v=QEl0G5wB21k" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -701,15 +702,14 @@
                 <p><strong>Место:</strong> <span id="modalConcertPlace"></span></p>
                 <h4>Программа:</h4>
                 <ul class="track-list" id="modalTrackList"></ul>
-                <!-- Кнопка в модалке с виджетом -->
-                <a href="#ticketscloud:event=6983552e93f1d889ada62bfa&token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok&lang=ru" class="btn" id="modalBuyBtn">Купить билет на этот концерт</a>
+                <a href="#" class="btn" id="modalBuyBtn" onclick="alert('Билеты можно приобрести на нашем сайте'); return false;">Купить билет на этот концерт</a>
             </div>
         </div>
     </div>
 
     <script>
         // Данные концертов
-        const concerts = [
+    const concerts = [
             {
                 id: 1,
                 title: "Вечер Вивальди",
@@ -760,7 +760,7 @@
             { text: "Отдельное спасибо за программу для детей — было интересно даже мне.", author: "Ольга, Самара" },
         ];
 
-        const soloists = [
+     const soloists = [
             { name: "Дмитрий Чирков", role: "дирижёр, основатель", img: "dima.jpg" },
             { name: "Анна Смирнова", role: "скрипка", img: "anna.jpg" },
             { name: "Пётр Волков", role: "виолончель", img: "petr.jpg" },
@@ -785,8 +785,7 @@
                         </div>
                         <p class="concert-description">${concert.description}</p>
                         <div class="concert-actions">
-                            <!-- Кнопка с виджетом в карточке -->
-                            <a href="#ticketscloud:event=6983552e93f1d889ada62bfa&token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok&lang=ru" class="btn">Купить билет</a>
+                            <a href="#" class="btn" onclick="alert('Билеты можно приобрести на нашем сайте'); return false;">Купить билет</a>
                             <button class="btn btn-outline details-btn" data-id="${concert.id}">Подробнее</button>
                         </div>
                     </div>
