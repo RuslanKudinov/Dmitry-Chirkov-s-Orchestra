@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Оркестр Дмитрия Чиркова</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Montserrat + системные -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Скрипт виджета TicketsCloud (обязательно!) -->
+    <!-- Скрипт виджета TicketsCloud -->
     <script src="https://ticketscloud.com/static/scripts/widget/tcwidget.js"></script>
     <style>
         * {
@@ -43,8 +44,16 @@
             padding: 0 20px;
         }
 
-        /* Кнопки - добавляем стили для кнопок TicketsCloud */
-        .btn, .tc-widget-button {
+        /* Шрифтовые классы */
+        .montserrat-light { font-weight: 300; }
+        .montserrat-regular { font-weight: 400; }
+        .montserrat-medium { font-weight: 500; }
+        .montserrat-bold { font-weight: 700; }
+        .times-italic { font-family: 'Times New Roman', Times, serif; font-style: italic; }
+        .times-bold-italic { font-family: 'Times New Roman', Times, serif; font-weight: 700; font-style: italic; }
+
+        /* Кнопки */
+        .btn {
             display: inline-block;
             padding: 12px 24px;
             border-radius: 40px;
@@ -59,7 +68,7 @@
             color: white;
             box-shadow: 0 4px 12px rgba(239, 65, 48, 0.2);
         }
-        .btn:hover, .tc-widget-button:hover {
+        .btn:hover {
             background: #d32f2f;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(239, 65, 48, 0.3);
@@ -75,13 +84,497 @@
             color: white;
         }
 
-        /* Остальные стили без изменений */
-        /* ... (весь остальной CSS из твоего файла) ... */
+        /* Шапка */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--black);
+            white-space: nowrap;
+        }
+        .logo span {
+            color: var(--primary-red);
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            align-items: center;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        nav a:hover {
+            color: var(--primary-red);
+        }
 
-        /* Для краткости я оставил только ключевые стили, но в твоём файле всё остаётся */
+        /* Hero — улучшены отступы для мобильных */
+        .hero {
+            background: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('ORKESTR_MAIN_PHOTO2.jpg') center/cover no-repeat;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem 20px;
+            width: 100%;
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .hero-title span {
+            color: var(--primary-red);
+        }
+        .hero-sub {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .hero .btn {
+            font-size: 1.2rem;
+            padding: 16px 40px;
+        }
+
+        /* Секции */
+        section {
+            padding: 5rem 0;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: block;
+            color: var(--black);
+            width: 100%;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: 3px;
+            background: var(--primary-red);
+            margin-top: 0.5rem;
+        }
+        .section-subtitle {
+            font-weight: 500;
+            color: var(--text-medium);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Карточки концертов */
+        .concerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        .concert-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+        }
+        .concert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        .concert-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--primary-red);
+        }
+        .concert-content {
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .concert-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .concert-meta {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .concert-meta i {
+            color: var(--primary-red);
+            width: 20px;
+        }
+        .concert-description {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            flex: 1;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+        .concert-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: nowrap;
+            margin-top: auto;
+        }
+        .concert-actions .btn {
+            flex: 1 1 auto;
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        @media (max-width: 400px) {
+            .concert-actions {
+                flex-wrap: wrap;
+            }
+            .concert-actions .btn {
+                width: 100%;
+            }
+        }
+
+        /* Оркестр */
+        .orchestra-description {
+            background: var(--light-bg);
+            border-radius: 48px 48px 0 0;
+            text-align: center;
+        }
+        .orchestra-text {
+            max-width: 800px;
+            margin: 2rem auto;
+            font-size: 1.2rem;
+            color: var(--text-medium);
+        }
+        .orchestra-quote {
+            font-size: 1.8rem;
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin: 2rem 0;
+        }
+
+        /* Видео */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Отзывы */
+        .reviews-section {
+            background: white;
+        }
+        .reviews-scroll {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 1rem 0 2rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .reviews-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .reviews-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary-red);
+            border-radius: 10px;
+        }
+        .review-card {
+            flex: 0 0 300px;
+            background: var(--light-bg);
+            border-radius: 24px;
+            padding: 2rem;
+            scroll-snap-align: start;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+        }
+        .review-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        .review-author {
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+
+        /* Солисты */
+        .soloists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+        .soloist-card {
+            text-align: center;
+        }
+        .soloist-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gray);
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+        .soloist-card:hover .soloist-photo {
+            border-color: var(--primary-red);
+        }
+        .soloist-name {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        .soloist-role {
+            color: var(--text-medium);
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .footer-col p, .footer-col a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s;
+            display: block;
+            font-weight: 300;
+        }
+        .footer-col a:hover {
+            color: var(--primary-red);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            background: var(--primary-red);
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        /* Модальное окно — выровненные отступы */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: #d32f2f;
+            transform: rotate(90deg);
+        }
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-right: 30px;
+            color: var(--black);
+        }
+        .modal-details p {
+            margin: 0.8rem 0;
+            color: var(--text-medium);
+        }
+        .modal-details p:first-of-type {
+            margin-top: 0;
+        }
+        .track-list {
+            list-style: none;
+            margin: 1rem 0 1.5rem 0;
+        }
+        .track-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .track-list i {
+            color: var(--primary-red);
+        }
+        .modal .btn {
+            width: 100%;
+            margin-top: 1.2rem;
+        }
+        .modal-details h4 {
+            margin: 0.8rem 0 0.3rem 0;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        /* адаптив */
+        @media (max-width: 1024px) {
+            .menu-toggle {
+                display: flex;
+            }
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1.5rem;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                border-top: 1px solid var(--border-light);
+            }
+            nav.active {
+                display: block;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            nav a {
+                display: block;
+                padding: 0.8rem 1.5rem;
+                background: var(--light-bg);
+                border-radius: 40px;
+                text-align: center;
+            }
+        }
+        @media (max-width: 768px) {
+            section { padding: 3rem 0; }
+            .section-title { font-size: 2rem; }
+            .hero-title { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
+
     <!-- Шапка -->
     <header>
         <div class="container header-content">
@@ -99,19 +592,14 @@
         </div>
     </header>
 
-    <!-- Hero с исправленной кнопкой -->
+    <!-- Hero -->
     <section class="hero">
         <div class="container hero-content">
             <h1 class="hero-title">Оркестр <span>Дмитрия Чиркова</span></h1>
             <div class="hero-sub">Академическая музыка, переосмысленная с душой</div>
             <div class="hero-buttons">
-                <!-- ИСПРАВЛЕНО: используем data-атрибуты вместо #ticketscloud: -->
-                <button class="btn"
-                        data-tc-event="6983552e93f1d889ada62bfa"
-                        data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
-                        data-tc-lang="ru">
-                    Купить билет <i class="fas fa-ticket-alt"></i>
-                </button>
+                <!-- Кнопка с виджетом TicketsCloud -->
+                <a href="#ticketscloud:event=6983552e93f1d889ada62bfa&token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok&lang=ru" class="btn">Купить билет <i class="fas fa-ticket-alt"></i></a>
                 <a href="#concerts" class="btn btn-outline" style="border-color: white; color: white;">Афиша</a>
             </div>
         </div>
@@ -126,8 +614,44 @@
         </div>
     </section>
 
-    <!-- Остальные секции без изменений -->
-    <!-- ... (весь твой код между ними) ... -->
+    <!-- Описание оркестра -->
+    <section id="orchestra" class="orchestra-description">
+        <div class="container">
+            <h2 class="section-title">Оркестр, который вы полюбите</h2>
+            <div class="orchestra-quote">«Музыка — это язык души, и мы говорим на нём свободно»</div>
+            <div class="orchestra-text">
+                <p>Оркестр Дмитрия Чиркова — это молодой коллектив, объединивший виртуозов из лучших музыкальных театров. Мы играем классику так, чтобы она звучала современно и понятно каждому. Каждый концерт — это диалог со зрителем, где нет места снобизму.</p>
+                <p style="margin-top: 1.5rem;">В нашем репертуаре: от Баха до Пьяццоллы, от киномузыки до мировых рок-хитов в симфонической обработке. Приходите убедиться сами!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Видео с концерта -->
+    <section style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Видео с концерта</h2>
+            <div class="section-subtitle">Взгляните на нашу атмосферу</div>
+            <div class="video-wrapper">
+                <iframe src="video.mp4" title="Классное видео с концерта" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы (горизонтальный скролл) -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Отзывы слушателей</h2>
+            <div class="reviews-scroll" id="reviewsContainer"></div>
+        </div>
+    </section>
+
+    <!-- Солисты -->
+    <section id="soloists">
+        <div class="container">
+            <h2 class="section-title">Солисты оркестра</h2>
+            <div class="soloists-grid" id="soloistsContainer"></div>
+        </div>
+    </section>
 
     <!-- Футер -->
     <footer id="contacts">
@@ -142,6 +666,7 @@
                     <p><i class="fas fa-envelope"></i> orchestra@chirkov.ru</p>
                     <p><i class="fas fa-phone"></i> +7 (800) 123-45-67</p>
                     <p><i class="fab fa-telegram"></i> @orchestraBest</p>
+                    <p><i class="fab fa-vk"></i> vk.com/orchestra.best</p>
                 </div>
                 <div class="footer-col">
                     <h4>Быстрые ссылки</h4>
@@ -165,7 +690,7 @@
         </div>
     </footer>
 
-    <!-- Модальное окно с исправленной кнопкой -->
+    <!-- Модальное окно для подробностей концерта -->
     <div id="concertModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
@@ -176,13 +701,8 @@
                 <p><strong>Место:</strong> <span id="modalConcertPlace"></span></p>
                 <h4>Программа:</h4>
                 <ul class="track-list" id="modalTrackList"></ul>
-                <!-- ИСПРАВЛЕНО: кнопка в модалке -->
-                <button class="btn" id="modalBuyBtn"
-                        data-tc-event="6983552e93f1d889ada62bfa"
-                        data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
-                        data-tc-lang="ru">
-                    Купить билет на этот концерт
-                </button>
+                <!-- Кнопка в модалке с виджетом -->
+                <a href="#ticketscloud:event=6983552e93f1d889ada62bfa&token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok&lang=ru" class="btn" id="modalBuyBtn">Купить билет на этот концерт</a>
             </div>
         </div>
     </div>
@@ -247,7 +767,7 @@
             { name: "Елизавета Морозова", role: "фортепиано", img: "eliz.jpg" },
         ];
 
-        // Рендер карточек с исправленными кнопками
+        // Рендер карточек
         function renderConcerts() {
             const grid = document.getElementById('concertsGrid');
             grid.innerHTML = '';
@@ -265,13 +785,8 @@
                         </div>
                         <p class="concert-description">${concert.description}</p>
                         <div class="concert-actions">
-                            <!-- ИСПРАВЛЕНО: кнопка с data-атрибутами -->
-                            <button class="btn"
-                                    data-tc-event="6983552e93f1d889ada62bfa"
-                                    data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
-                                    data-tc-lang="ru">
-                                Купить билет
-                            </button>
+                            <!-- Кнопка с виджетом в карточке -->
+                            <a href="#ticketscloud:event=6983552e93f1d889ada62bfa&token=eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok&lang=ru" class="btn">Купить билет</a>
                             <button class="btn btn-outline details-btn" data-id="${concert.id}">Подробнее</button>
                         </div>
                     </div>
