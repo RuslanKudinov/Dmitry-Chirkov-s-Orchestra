@@ -51,7 +51,7 @@
         .times-italic { font-family: 'Times New Roman', Times, serif; font-style: italic; }
         .times-bold-italic { font-family: 'Times New Roman', Times, serif; font-weight: 700; font-style: italic; }
 
-        /* Кнопки - дизайн из эталона */
+        /* Базовые стили для всех кнопок */
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -81,6 +81,37 @@
         .btn-outline:hover {
             background: var(--primary-red);
             color: white;
+        }
+
+        /* Стили для кнопок TicketsCloud - добавляем тот же дизайн */
+        button[data-tc-event],
+        .tc-widget-button,
+        .btn-ticketscloud {
+            display: inline-block !important;
+            padding: 12px 24px !important;
+            border-radius: 40px !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            text-align: center !important;
+            transition: all 0.3s ease !important;
+            border: none !important;
+            cursor: pointer !important;
+            font-size: 1rem !important;
+            background: var(--primary-red) !important;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(239, 65, 48, 0.2) !important;
+            font-family: 'Montserrat', Arial, sans-serif !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            vertical-align: baseline !important;
+        }
+
+        button[data-tc-event]:hover,
+        .tc-widget-button:hover,
+        .btn-ticketscloud:hover {
+            background: #d32f2f !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(239, 65, 48, 0.3) !important;
         }
 
         /* Шапка */
@@ -184,13 +215,15 @@
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
-            display: inline-block;
+            display: block;
             color: var(--black);
+            width: 100%;
         }
         .section-title:after {
             content: '';
             display: block;
-            width: 70px;
+            width: 100%;
+            max-width: 100%;
             height: 3px;
             background: var(--primary-red);
             margin-top: 0.5rem;
@@ -265,6 +298,7 @@
             flex-wrap: nowrap;
             margin-top: auto;
         }
+        .concert-actions button,
         .concert-actions .btn {
             flex: 1 1 auto;
             padding: 10px 12px;
@@ -275,6 +309,7 @@
             .concert-actions {
                 flex-wrap: wrap;
             }
+            .concert-actions button,
             .concert-actions .btn {
                 width: 100%;
             }
@@ -301,7 +336,7 @@
             margin: 2rem 0;
         }
 
-        /* Видео - локальный файл */
+        /* Видео */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -629,13 +664,13 @@
         </div>
     </section>
 
-    <!-- Видео с концерта - локальный файл -->
+    <!-- Видео с концерта -->
     <section style="background: white;">
         <div class="container">
             <h2 class="section-title">Видео с концерта</h2>
             <div class="section-subtitle">Взгляните на нашу атмосферу</div>
             <div class="video-wrapper">
-                <video src="video.mp4" controls playsinline>
+                <video src="video.mp4" controls playsinline poster="poster.jpg">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
