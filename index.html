@@ -51,7 +51,7 @@
         .times-italic { font-family: 'Times New Roman', Times, serif; font-style: italic; }
         .times-bold-italic { font-family: 'Times New Roman', Times, serif; font-weight: 700; font-style: italic; }
 
-        /* Кнопки */
+        /* Кнопки - восстановлен дизайн */
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -303,7 +303,7 @@
             margin: 2rem 0;
         }
 
-        /* Видео */
+        /* Видео - исправлено для локального файла */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -312,14 +312,16 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             margin-top: 2rem;
+            background: var(--black);
         }
-        .video-wrapper iframe {
+        .video-wrapper video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             border: none;
+            object-fit: cover;
         }
 
         /* Отзывы */
@@ -629,13 +631,15 @@
         </div>
     </section>
 
-    <!-- Видео с концерта -->
+    <!-- Видео с концерта - исправлено на локальный файл -->
     <section style="background: white;">
         <div class="container">
             <h2 class="section-title">Видео с концерта</h2>
             <div class="section-subtitle">Взгляните на нашу атмосферу</div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Классное видео с концерта" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <video src="video.mp4" controls playsinline poster="poster.jpg">
+                    Ваш браузер не поддерживает видео.
+                </video>
             </div>
         </div>
     </section>
