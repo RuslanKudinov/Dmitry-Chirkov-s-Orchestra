@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Оркестр Дмитрия Чиркова</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Montserrat + системные -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Скрипт виджета TicketsCloud -->
+    <script src="https://ticketscloud.com/static/scripts/widget/tcwidget.js"></script>
     <style>
         * {
             margin: 0;
@@ -42,7 +43,7 @@
             padding: 0 20px;
         }
 
-        /* Шрифтовые классы */
+        /* Шрифты */
         .montserrat-light { font-weight: 300; }
         .montserrat-regular { font-weight: 400; }
         .montserrat-medium { font-weight: 500; }
@@ -50,7 +51,7 @@
         .times-italic { font-family: 'Times New Roman', Times, serif; font-style: italic; }
         .times-bold-italic { font-family: 'Times New Roman', Times, serif; font-weight: 700; font-style: italic; }
 
-        /* Кнопки */
+        /* Кнопки - базовый стиль (как во втором примере) */
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -65,6 +66,7 @@
             background: var(--primary-red);
             color: white;
             box-shadow: 0 4px 12px rgba(239, 65, 48, 0.2);
+            font-family: 'Montserrat', Arial, sans-serif;
         }
         .btn:hover {
             background: #d32f2f;
@@ -135,7 +137,7 @@
             color: var(--primary-red);
         }
 
-        /* Hero — улучшены отступы для мобильных */
+        /* Hero */
         .hero {
             background: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('ORKESTR_MAIN_PHOTO2.jpg') center/cover no-repeat;
             min-height: 85vh;
@@ -146,7 +148,7 @@
         }
         .hero-content {
             max-width: 800px;
-            padding: 2rem 20px; /* добавлен горизонтальный padding */
+            padding: 2rem 20px;
             width: 100%;
         }
         .hero-title {
@@ -183,20 +185,19 @@
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
-            display: block;           /* чтобы линия растягивалась */
+            display: block;
             color: var(--black);
             width: 100%;
         }
         .section-title:after {
             content: '';
             display: block;
-            width: 100%;              /* линия на всю ширину контейнера */
+            width: 100%;
             max-width: 100%;
             height: 3px;
             background: var(--primary-red);
             margin-top: 0.5rem;
         }
-        /* для особых случаев можно ограничить, но оставим full-width */
         .section-subtitle {
             font-weight: 500;
             color: var(--text-medium);
@@ -304,22 +305,52 @@
         }
 
         /* Видео */
+        .video-section {
+            background: white;
+            padding: 5rem 0;
+            width: 100%;
+            overflow: hidden;
+        }
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+            width: 100%;
+            max-width: 100%;
             border-radius: 24px;
             overflow: hidden;
             box-shadow: var(--shadow);
             margin-top: 2rem;
+            background: black;
         }
-        .video-wrapper iframe {
+        .video-wrapper video {
+            display: block;
+            width: 100%;
+            height: auto;
+            min-height: 350px;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+        .video-wrapper::after {
+            content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            border: none;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 0 0 24px 24px;
+        }
+        @media (max-width: 768px) {
+            .video-wrapper {
+                border-radius: 0;
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
+            }
+            .video-wrapper::after {
+                border-radius: 0;
+            }
         }
 
         /* Отзывы */
@@ -450,7 +481,7 @@
             font-weight: 300;
         }
 
-        /* Модальное окно — выровненные отступы */
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -504,16 +535,15 @@
             color: var(--black);
         }
         .modal-details p {
-            margin: 0.8rem 0;          /* одинаковые отступы между параграфами */
+            margin: 0.8rem 0;
             color: var(--text-medium);
         }
-        /* убираем лишний верхний отступ у первого p */
         .modal-details p:first-of-type {
             margin-top: 0;
         }
         .track-list {
             list-style: none;
-            margin: 1rem 0 1.5rem 0;    /* отступ сверху как у параграфов (0.8 схоже) */
+            margin: 1rem 0 1.5rem 0;
         }
         .track-list li {
             padding: 0.5rem 0;
@@ -529,9 +559,8 @@
             width: 100%;
             margin-top: 1.2rem;
         }
-        /* заголовок программы теперь имеет такой же отступ сверху, как и другие элементы */
         .modal-details h4 {
-            margin: 0.8rem 0 0.3rem 0;   /* отступ сверху как у p, снизу чуть меньше */
+            margin: 0.8rem 0 0.3rem 0;
             font-weight: 600;
             color: var(--black);
         }
@@ -571,12 +600,10 @@
             section { padding: 3rem 0; }
             .section-title { font-size: 2rem; }
             .hero-title { font-size: 2.5rem; }
-            /* дополнительный отступ слева для hero на мобильных уже обеспечен padding контейнера */
         }
     </style>
 </head>
 <body>
-
     <!-- Шапка -->
     <header>
         <div class="container header-content">
@@ -600,7 +627,14 @@
             <h1 class="hero-title">Оркестр <span>Дмитрия Чиркова</span></h1>
             <div class="hero-sub">Академическая музыка, переосмысленная с душой</div>
             <div class="hero-buttons">
-                <a href="#" class="btn" onclick="alert('Билеты на ближайший концерт'); return false;">Купить билет <i class="fas fa-ticket-alt"></i></a>
+                <!-- Кнопка TicketsCloud в Hero с классом btn и атрибутом data-tc-no-style -->
+                <button class="btn"
+                        data-tc-event="6983552e93f1d889ada62bfa"
+                        data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
+                        data-tc-lang="ru"
+                        data-tc-no-style>
+                    Купить билет <i class="fas fa-ticket-alt"></i>
+                </button>
                 <a href="#concerts" class="btn btn-outline" style="border-color: white; color: white;">Афиша</a>
             </div>
         </div>
@@ -628,12 +662,14 @@
     </section>
 
     <!-- Видео с концерта -->
-    <section style="background: white;">
+    <section class="video-section" id="video">
         <div class="container">
             <h2 class="section-title">Видео с концерта</h2>
             <div class="section-subtitle">Взгляните на нашу атмосферу</div>
             <div class="video-wrapper">
-                <iframe src="video.mp4" title="Классное видео с концерта" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <video src="video.mp4" controls playsinline poster="poster.jpg">
+                    Ваш браузер не поддерживает видео.
+                </video>
             </div>
         </div>
     </section>
@@ -667,7 +703,6 @@
                     <p><i class="fas fa-envelope"></i> orchestra@chirkov.ru</p>
                     <p><i class="fas fa-phone"></i> +7 (800) 123-45-67</p>
                     <p><i class="fab fa-telegram"></i> @orchestraBest</p>
-                    <p><i class="fab fa-vk"></i> vk.com/orchestra.best</p>
                 </div>
                 <div class="footer-col">
                     <h4>Быстрые ссылки</h4>
@@ -679,9 +714,9 @@
                 <div class="footer-col">
                     <h4>Мы в соцсетях</h4>
                     <div class="social-links">
-                         <a href="https://vk.com/orchestra.best" target="_blank"><i class="fab fa-vk"></i></a>
-        <a href="https://t.me/orchestraBest" target="_blank"><i class="fab fa-telegram"></i></a>
-    <a href="https://www.youtube.com/watch?v=QEl0G5wB21k" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://vk.com/orchestra.best" target="_blank"><i class="fab fa-vk"></i></a>
+                        <a href="https://t.me/orchestraBest" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://www.youtube.com/watch?v=QEl0G5wB21k" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -691,7 +726,7 @@
         </div>
     </footer>
 
-    <!-- Модальное окно для подробностей концерта -->
+    <!-- Модальное окно -->
     <div id="concertModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
@@ -702,14 +737,21 @@
                 <p><strong>Место:</strong> <span id="modalConcertPlace"></span></p>
                 <h4>Программа:</h4>
                 <ul class="track-list" id="modalTrackList"></ul>
-                <a href="#" class="btn" id="modalBuyBtn" onclick="alert('Билеты можно приобрести на нашем сайте'); return false;">Купить билет на этот концерт</a>
+                <!-- Кнопка TicketsCloud в модалке с классом btn и атрибутом data-tc-no-style -->
+                <button class="btn" id="modalBuyBtn"
+                        data-tc-event="6983552e93f1d889ada62bfa"
+                        data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
+                        data-tc-lang="ru"
+                        data-tc-no-style>
+                    Купить билет на этот концерт
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         // Данные концертов
-    const concerts = [
+        const concerts = [
             {
                 id: 1,
                 title: "Вечер Вивальди",
@@ -760,7 +802,7 @@
             { text: "Отдельное спасибо за программу для детей — было интересно даже мне.", author: "Ольга, Самара" },
         ];
 
-     const soloists = [
+        const soloists = [
             { name: "Дмитрий Чирков", role: "дирижёр, основатель", img: "dima.jpg" },
             { name: "Анна Смирнова", role: "скрипка", img: "anna.jpg" },
             { name: "Пётр Волков", role: "виолончель", img: "petr.jpg" },
@@ -785,7 +827,14 @@
                         </div>
                         <p class="concert-description">${concert.description}</p>
                         <div class="concert-actions">
-                            <a href="#" class="btn" onclick="alert('Билеты можно приобрести на нашем сайте'); return false;">Купить билет</a>
+                            <!-- Кнопка TicketsCloud в карточке с классом btn и атрибутом data-tc-no-style -->
+                            <button class="btn"
+                                    data-tc-event="6983552e93f1d889ada62bfa"
+                                    data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
+                                    data-tc-lang="ru"
+                                    data-tc-no-style>
+                                Купить билет
+                            </button>
                             <button class="btn btn-outline details-btn" data-id="${concert.id}">Подробнее</button>
                         </div>
                     </div>
