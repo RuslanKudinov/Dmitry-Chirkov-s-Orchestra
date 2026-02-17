@@ -574,7 +574,7 @@
             /* дополнительный отступ слева для hero на мобильных уже обеспечен padding контейнера */
         }
 
-    /* Переопределение стилей Ticketscloud для всех кнопок покупки */
+ /* Переопределение стилей Ticketscloud для всех кнопок покупки */
 button.btn[data-tc-event],
 button.btn[data-tc-token],
 a.btn[data-tc-event],
@@ -590,7 +590,8 @@ a.btn[data-tc-token] {
     line-height: 1.6 !important;
     text-decoration: none !important;
     transition: all 0.3s ease !important;
-    font-family: inherit !important; /* чтобы не сбился шрифт */
+    font-family: inherit !important;
+    text-transform: none !important; /* ← добавьте эту строку */
 }
 
 button.btn[data-tc-event]:hover,
