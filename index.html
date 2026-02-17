@@ -51,7 +51,7 @@
         .times-italic { font-family: 'Times New Roman', Times, serif; font-style: italic; }
         .times-bold-italic { font-family: 'Times New Roman', Times, serif; font-weight: 700; font-style: italic; }
 
-        /* КНОПКИ - НОВЫЙ ДИЗАЙН как во втором примере */
+        /* Кнопки - базовый стиль (как во втором примере) */
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -82,40 +82,6 @@
         .btn-outline:hover {
             background: var(--primary-red);
             color: white;
-        }
-
-        /* Стили для кнопок TicketsCloud - наследуют стили обычных кнопок */
-        button[data-tc-event],
-        .tc-widget-button {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            background: var(--primary-red);
-            color: white;
-            box-shadow: 0 4px 12px rgba(239, 65, 48, 0.2);
-            font-family: 'Montserrat', Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        button[data-tc-event]:hover,
-        .tc-widget-button:hover {
-            background: #d32f2f;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(239, 65, 48, 0.3);
-        }
-
-        /* Специальный стиль для кнопки в Hero (как во втором примере) */
-        .hero .btn {
-            font-size: 1.2rem;
-            padding: 16px 40px;
         }
 
         /* Шапка */
@@ -204,6 +170,10 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+        }
+        .hero .btn {
+            font-size: 1.2rem;
+            padding: 16px 40px;
         }
 
         /* Секции */
@@ -298,8 +268,7 @@
             flex-wrap: nowrap;
             margin-top: auto;
         }
-        .concert-actions .btn,
-        .concert-actions button[data-tc-event] {
+        .concert-actions .btn {
             flex: 1 1 auto;
             padding: 10px 12px;
             font-size: 0.95rem;
@@ -309,8 +278,7 @@
             .concert-actions {
                 flex-wrap: wrap;
             }
-            .concert-actions .btn,
-            .concert-actions button[data-tc-event] {
+            .concert-actions .btn {
                 width: 100%;
             }
         }
@@ -336,7 +304,7 @@
             margin: 2rem 0;
         }
 
-        /* Видео секция - как во втором примере */
+        /* Видео */
         .video-section {
             background: white;
             padding: 5rem 0;
@@ -375,14 +343,10 @@
         }
         @media (max-width: 768px) {
             .video-wrapper {
-                border-radius: 16px;
+                border-radius: 0;
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
-                border-radius: 0;
-            }
-            .video-wrapper video {
-                border-radius: 0;
             }
             .video-wrapper::after {
                 border-radius: 0;
@@ -591,8 +555,7 @@
         .track-list i {
             color: var(--primary-red);
         }
-        .modal .btn,
-        .modal button[data-tc-event] {
+        .modal .btn {
             width: 100%;
             margin-top: 1.2rem;
         }
@@ -664,7 +627,7 @@
             <h1 class="hero-title">Оркестр <span>Дмитрия Чиркова</span></h1>
             <div class="hero-sub">Академическая музыка, переосмысленная с душой</div>
             <div class="hero-buttons">
-                <!-- Кнопка TicketsCloud в Hero с новым дизайном -->
+                <!-- Кнопка TicketsCloud в Hero с классом btn -->
                 <button class="btn"
                         data-tc-event="6983552e93f1d889ada62bfa"
                         data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
@@ -697,7 +660,7 @@
         </div>
     </section>
 
-    <!-- Видео с концерта - обновлённая секция -->
+    <!-- Видео с концерта -->
     <section class="video-section" id="video">
         <div class="container">
             <h2 class="section-title">Видео с концерта</h2>
@@ -773,7 +736,7 @@
                 <p><strong>Место:</strong> <span id="modalConcertPlace"></span></p>
                 <h4>Программа:</h4>
                 <ul class="track-list" id="modalTrackList"></ul>
-                <!-- Кнопка TicketsCloud в модалке -->
+                <!-- Кнопка TicketsCloud в модалке с классом btn -->
                 <button class="btn" id="modalBuyBtn"
                         data-tc-event="6983552e93f1d889ada62bfa"
                         data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
@@ -862,7 +825,7 @@
                         </div>
                         <p class="concert-description">${concert.description}</p>
                         <div class="concert-actions">
-                            <!-- Кнопка TicketsCloud в карточке -->
+                            <!-- Кнопка TicketsCloud в карточке с классом btn -->
                             <button class="btn"
                                     data-tc-event="6983552e93f1d889ada62bfa"
                                     data-tc-token="eyJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSIsInR5cCI6IkpXVCJ9.eyJwIjoiNjk0ZWVlMjI4NmRkNzgyN2M4NjlmZTRmIn0.bWA9W2fCAwZbgUIaryg75h-o8XzSXHcBM3Ju6nYQ_Ok"
