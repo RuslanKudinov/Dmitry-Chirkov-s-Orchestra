@@ -609,7 +609,13 @@ a.btn[data-tc-token]:hover {
     font-size: 1.2rem !important;
     padding: 16px 40px !important;
 }
+       /* === Глобальные исправления === */
 
+/* 1. Отступ для фиксированной шапки при якорной навигации */
+html {
+    scroll-padding-top: 80px;  /* высота шапки + запас */
+    scroll-behavior: smooth;
+}
     </style>
 </head>
 <body>
